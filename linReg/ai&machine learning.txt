@@ -1,0 +1,67 @@
+Machine learning algorithms 3 typs:
+
+Supervise: to analyze lebbeled datasets. Human trains the algorithm to label the input
+with paired outcome. mechine learns in future then when gets new data, knows to label them. 
+
+Unsupervised: to analyze and cluster unlabeled datasets. These algorithms discover
+hidden patterns or data grouping without the need of human intervention.
+
+Reinforcement: we give positive and neagtive feedback or action and reward system. example: games
+
+Supervised machine learning:
+Regression:	simple linear, multiple linear, polynomial.
+Classification:
+
+Linear Regression: It is a statistical model usesd to predict the relationship
+between independent and dependent variables.
+We need independent variable X (doesnt depend on any other variables)
+And dependent variable Y (depends on other variabls)
+exapmle: crop making : crops need rain to grow. rain is an independent variable
+	and crops are dependent variable.
+regression equation, y=mx+c. m is slope of the line. c coefficient of the line
+
+Simple Regression: So,for simple linear regression, we have x and y value. then we make a line predicitng 
+the best possile way. then we calculate m and c with formulas. Then we calculate y(pred)
+with new m c value with y=mx+c. then we will see the line shifted, specialy y value moved.
+then we calculate y-y(pred) and square that value. This value is called e square which is the regression
+error. so we keep moving the line intil we find the line with least e square value or least error.
+
+Multiple linear regression: In this, there is going to be lots of x values.
+the equation will be Y= M1X1+M2X2+M3X3+...+MnXn+C
+
+***Using spider and python to see the date linear regression***
+First we got some data from the site. Then we opened a new project in spider. then imported the libraries
+
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score,mean_absolute_error
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+Then imported the dataset and assigned them to X and Y
+
+companies = pd.read_csv('D:/ai-ml/linReg/1000_Companies.csv')
+X = companies.iloc[:,: -1].values //it means from companies file location, take every row[:,] except the last colum [:-1]
+Y = companies.iloc[:, 4].values ////it means from companies file location, take every row[:,] till the last colum [:4]
+
+#this to print the data
+print(companies.head())
+
+#data visualisation. to see the data in the plots
+#building the correlation maatrix
+sns.heatmap(companies.corr())
+
+#encoding categorical data
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+labelencoder = LabelEncoder() //variable to a class
+X[:,3] = labelencoder.fit_transform(X[:, 3]) //[: this means we gonna go thro all the rows and we only edit 3rd row ,3]. then we 
+fit and transforms them. It basically says instead of taking Newyork, Florida; transform them into number 1,2,3 and fit them in the label coder
+
+oneHotEncoder = OneHotEncoder(categorical_features = [3])
+X = oneHotEncoder.fit_transform(X).torray()
+
+****Having problem with the categorical_features**
+
+to be cpntinued after fix
